@@ -1,20 +1,26 @@
 import os
-from dotenv import load_dotenv
-import click
 import subprocess
+
+import click
+from dotenv import load_dotenv
 
 load_dotenv()
 
 SERVICES = os.getenv("SYSTEMD_SERVICES", "")
 if not SERVICES.strip():
-    click.echo("⚠️  Warning: No services defined in the .env file.")
-    click.echo("Please define services in the .env file in the format: alias:service_name,alias2:service_name2")
+    click.echo("⚠️  Warning: No services defined in the .env file. ⚠️")
+    click.echo("Please define services in the .env file in the format:")
+    click.echo("SYSTEMD_SERVICES=alias:service_name,alias2:service_name2")
     exit(1)
-SERVICE_MAP = {s.split(":")[0]: s.split(":")[1] for s in SERVICES.split(",") if ":" in s}
+SERVICE_MAP = {
+    s.split(":")[0]: s.split(":")[1] for s in SERVICES.split(",") if ":" in s
+}
 if not SERVICE_MAP:
-    click.echo("⚠️  Warning: Services are not properly defined in the .env file.")
-    click.echo("Ensure each service entry follows the format: alias:service_name")
+    click.echo("⚠️  Warning: Services are not properly defined in the .env file. ⚠️")
+    click.echo("Ensure each service entry follows the format:")
+    click.echo("SYSTEMD_SERVICES=alias:service_name,alias2:service_name2")
     exit(1)
+
 
 def run_command(command):
     try:
