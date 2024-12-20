@@ -37,8 +37,8 @@ def cli():
 
 @cli.command()
 @click.argument("alias")
-def restart(alias):
-    """Restart a service."""
+def r(alias):
+    """Restart service"""
     if alias not in SERVICE_MAP:
         click.echo(f"Service alias '{alias}' not found in configuration.")
         return
@@ -49,8 +49,8 @@ def restart(alias):
 
 @cli.command()
 @click.argument("alias")
-def status(alias):
-    """Check the status of a service."""
+def s(alias):
+    """Check the status of a service"""
     if alias not in SERVICE_MAP:
         click.echo(f"Service alias '{alias}' not found in configuration.")
         return
@@ -61,8 +61,8 @@ def status(alias):
 
 @cli.command()
 @click.argument("alias")
-def logs(alias):
-    """Show the latest logs of a service."""
+def l(alias):
+    """Show the latest logs of a service"""
     if alias not in SERVICE_MAP:
         click.echo(f"Service alias '{alias}' not found in configuration.")
         return
@@ -72,8 +72,8 @@ def logs(alias):
 
 
 @cli.command()
-def list():
-    """List all configured services."""
+def v():
+    """View all configured services"""
     click.echo("Configured services:")
     for alias, service in SERVICE_MAP.items():
         click.echo(f"  {alias}: {service}")
